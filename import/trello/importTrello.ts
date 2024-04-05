@@ -20,16 +20,6 @@ import { createCommentBlock } from "../../webapp/src/blocks/commentBlock"
 
 type TrelloUsersType = {
     id: string;
-    username: string;
-    nickname: string;
-    firstname: string;
-    lastname: string;
-    create_at: number;
-    update_at: number;
-    delete_at: number;
-    is_bot: boolean;
-    is_guest: boolean;
-    roles: string;
     idTrello: string;
 }
 
