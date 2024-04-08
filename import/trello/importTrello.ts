@@ -21,6 +21,7 @@ import { createCommentBlock } from "../../webapp/src/blocks/commentBlock"
 type TrelloUsersType = {
     id: string;
     idTrello: string;
+    username: string;
 }
 
 const optionColors = [
@@ -245,14 +246,20 @@ function convert(
             if (comments.length) {
                 comments.forEach((comment) => {
                     const commentBlock = createCommentBlock()
-                    commentBlock.title = comment.data.text || ""
-                    commentBlock.boardId = board.id
-                    commentBlock.parentId = outCard.id
 
                     const trelloUser = comment.idMemberCreator
                     const mattermostUser = trelloUsers.find(
                         (user) => trelloUser === user.idTrello
                     )
+
+                    const username = mattermostUser?.username ? `**@${mattermostUser.username}:** ` : ""
+
+                    const commentText = comment.data.text ?? ""
+
+                    commentBlock.title =  username ? username + commentText : commentText
+                    commentBlock.boardId = board.id
+                    commentBlock.parentId = outCard.id
+
                     if (mattermostUser) {
                         commentBlock.createdBy = mattermostUser.id
                         commentBlock.modifiedBy = mattermostUser.id
